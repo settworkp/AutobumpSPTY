@@ -1,0 +1,22 @@
+name: Bump Thread Every 24 Hours
+
+on:
+  workflow_dispatch:       # Déclenché uniquement par cron-job.org ou manuellement
+
+jobs:
+  autobump:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📁 Cloner le dépôt
+        uses: actions/checkout@v3
+
+      - name: 🟦 Installer Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: 🚀 Lancer le script bump
+        env:
+          COOKIES_JSON: ${{ secrets.COOKIES_JSON }}
+        run: node bump.js
